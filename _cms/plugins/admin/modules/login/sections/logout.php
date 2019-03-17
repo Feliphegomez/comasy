@@ -1,0 +1,3 @@
+<?php
+
+$website->session->delete();

@@ -1,3 +1,4 @@
+# comasy
 # ¿Como funciona el MVC?
 
 El funcionamiento básico del patrón MVC, puede resumirse en:
@@ -87,4 +88,4 @@ $session->__destruct();
 
 Así que ahí lo tienen, una clase de manejo de sesión simple que puede usar para cualquier proyecto web.
 
-Además, si usa esto en sus aplicaciones, tenga la amabilidad de dejar el texto del encabezado adicional en la parte superior.# comasy
+Además, si usa esto en sus aplicaciones, tenga la amabilidad de dejar el texto del encabezado adicional en la parte superior.
