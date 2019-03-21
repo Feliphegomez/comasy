@@ -16,13 +16,20 @@
 
 <!-- Custom-Files -->
 <link rel="stylesheet" href="<?php echo $website->get_assets_folder(); ?>css/bootstrap.css">
-<!-- Bootstrap-Core-CSS -->
-<link rel="stylesheet" href="<?php echo $website->get_assets_folder(); ?>css/style.css" type="text/css" media="all" />
-<!-- Style-CSS -->
-<link href="<?php echo $website->get_assets_folder(); ?>css/font-awesome.min.css" rel="stylesheet">
 <!-- Font-Awesome-Icons-CSS -->
 <!-- //Custom-Files -->
 
 <!-- Web-Fonts -->
 <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&amp;subset=latin-ext" rel="stylesheet">
 <!-- //Web-Fonts -->
+
+<!-- //<script src="https://cloud.tinymce.com/5/tinymce.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js"></script>
+<!-- //<script src="/_cms/libs/tinymce/tinymce.min.js"></script> -->
+
+
+<?php $website->get_global('head'); ?>
+
+
+<!-- Custom CSS -->
+<!--<link href="<?php echo $website->get_assets_folder(); ?>css/style.css" rel='stylesheet' type='text/css' /> -->

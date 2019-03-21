@@ -113,9 +113,9 @@ div#home {
 }
 
 header {
-    position: absolute;
+    position: inherit;
     width: 100%;
-    z-index: 9;
+    /* z-index: 9; */
 }
 
 /* logo */

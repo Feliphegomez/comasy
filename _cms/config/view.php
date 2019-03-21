@@ -1,3 +1,2 @@
-<?php
-$website = new Site();
-
+<?php 
+	

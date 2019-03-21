@@ -141,27 +141,35 @@ class Route
 		$r = array();
 		switch($this->method){
 			case 'POST':
-				if(isset($_POST['url'])){ unset($_POST['url']); }
-				$r = ($_POST);
-				$_POST = null;
+				if(isset($_POST['url'])){
+					# unset($_POST['url']);
+					$r = ($_POST);
+					# $_POST = null;
+				}
 				return $r;
 				break;
 			case 'PUT':
-				if(isset($_PUT['url'])){ unset($_PUT['url']); }
-				$r = ($_PUT);
-				$_PUT = null;
+				if(isset($_PUT['url'])){
+					# unset($_PUT['url']);
+					$r = ($_PUT);
+					# $_PUT = null;
+				}
 				return $r;
 				break;
 			case 'DELETE':
-				if(isset($_DELETE['url'])){ unset($_DELETE['url']); }
-				$r = ($_DELETE);
-				$_DELETE = null;
+				if(isset($_DELETE['url'])){
+					# unset($_DELETE['url']);
+					$r = ($_DELETE);
+					# $_DELETE = null;
+				}
 				return $r;
 				break;
 			case 'GET':
-				if(isset($_GET['url'])){ unset($_GET['url']); }
-				$r = ($_GET);
-				$_GET = null;
+				if(isset($_GET['url'])){
+					# unset($_GET['url']);
+					$r = ($_GET);
+					# $_GET = null;
+				}
 				return $r;
 				break;
 			default:
@@ -291,21 +299,30 @@ class Site extends Route
 		$this->active_options();
 		$this->include_models_plugins();
 		parent::__construct();
-		if($this->error == false)
+		if($this->plugin !== 'api')
 			{
-				global $website;
-				$this->get_session();
-				$website = $this;
-				$this->get_html();
+				if($this->error == false)
+					{
+						global $website;
+						$this->get_session();
+						$website = $this;
+						$this->get_html();
+					}
+				else
+					{
+						# echo json_encode($this);
+						echo $this->path;
+						echo '<br>';
+						exit('Route/URL No encontrad@ en la BD.<br>');
+					};
 			}
-		else
-			{
-				# echo json_encode($this);
-				echo $this->path;
-				echo '<br>';
-				exit('Route/URL No encontrad@ en la BD.<br>');
-			};
+		else {
+			define('LOGGIN_REQ', true);
+			$this->get_session();
+		}
+		
 	}
+	
 	public function active_options()
 		{
 			date_default_timezone_set($this->options->timezone_string);
@@ -366,6 +383,13 @@ class Site extends Route
 			$this->include_file("_cms/plugins/{$plugin}/views/{$view}_view.php");
 		}
 	
+	public function get_template_theme($template = null)
+		{
+			global $website;
+			$website = $this;
+			$this->include_file("_cms/themes/".THEME_ACTIVE."/templates/{$template}.php");
+			
+		}
 	
 	public function get_controller_plugin($plugin = null, $controller = null)
 		{
@@ -409,6 +433,7 @@ class Site extends Route
 					global $website;
 					$website = $this;
 					include_once($fullpath_file);
+					# require_once($fullpath_file);
 				}
 			else 
 				{ if(MODE_DEBUG == true){ echo "No existe el archivo.  =>  {$fullpath_file}"; } }
@@ -426,10 +451,16 @@ class Site extends Route
 		return $this->scheme.'://'.$this->server_name.':'.$this->server_port."/"."_cms/themes/".THEME_ACTIVE."/";
 	}
 	
+	public function get_assets_global()
+	{ 
+		return $this->scheme.'://'.$this->server_name.':'.$this->server_port."/"."_cms/global/";
+	}
+	
 	public function get_section_active()
 	{
+		$this->include_file("_cms/global/navbar-admin.php");
 		$this->include_file("_cms/plugins/{$this->page->plugin}/modules/{$this->page->module}/sections/{$this->page->section}.php");
-		if(MODE_DEBUG == true)
+		if(MODE_DEBUG == true && $this->permissionIs('page_edit') == true)
 		{
 			$this->get_view_plugin('admin', 'debug');
 		}	
@@ -452,6 +483,29 @@ class Site extends Route
 			{
 				return true;
 			}
+	}
+	
+	public function permissionIs($permission = null)
+	{
+		$session_server = (object) $this->session_server;
+		
+		if(isset($session_server->permissions))
+			{
+				$permissions = (object) json_decode(json_encode(json_decode($session_server->permissions)));
+				
+				if(isset($permissions->$permission))
+					{
+						return $permissions->$permission;
+					}
+				else 
+					{
+						return false;
+					}
+			}
+	}
+	
+	public function get_global($filename = null) {
+		$this->include_file("_cms/global/{$filename}.php");
 	}
 }
 
@@ -602,4 +656,5 @@ class Router extends BaseClass
 	}
 
 }
+
 
