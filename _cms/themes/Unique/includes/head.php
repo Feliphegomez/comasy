@@ -20,11 +20,11 @@
 <!-- //Custom-Files -->
 
 <!-- Web-Fonts -->
-<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&amp;subset=latin-ext" rel="stylesheet">
+<!-- //<link href="//fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700,900&amp;subset=latin-ext" rel="stylesheet"> -->
 <!-- //Web-Fonts -->
 
 <!-- //<script src="https://cloud.tinymce.com/5/tinymce.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js"></script>
+<!-- //<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js"></script> -->
 <!-- //<script src="/_cms/libs/tinymce/tinymce.min.js"></script> -->
 
 

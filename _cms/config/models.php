@@ -105,7 +105,16 @@ class Route
 		$this->scheme = $_SERVER['REQUEST_SCHEME'];
 		$this->server_name = $_SERVER['SERVER_NAME'];
 		$this->server_port = $_SERVER['SERVER_PORT'];
-		$this->fullpath = $this->scheme.'://'.$this->server_name.':'.$this->server_port.$this->path;
+		
+		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+		if(isset($uri_parts[1]))
+			{
+				$this->fullpath = $this->scheme.'://' . $this->server_name . ':' . $this->server_port.$this->path . '?' . $uri_parts[1];
+			}
+		else {
+			$this->fullpath = $this->scheme.'://'.$this->server_name.':'.$this->server_port.$this->path;
+		}
+		
 		$this->method = $method;
 		$this->fields = $this->repairFields();
 		$this->action = $this->get_action();
@@ -284,6 +293,10 @@ class Route
 					$resultOne = (object) $result[0];
 					$this->error = false;
 					$this->page = new Router($resultOne);
+					$this->theme = $this->page->theme;
+					$this->session_required = (boolean) $this->page->session_required;
+					define('THEME_ACTIVE', $this->page->theme);
+					define('LOGGIN_REQ', $this->session_required);
 				}
 			}
 		}
@@ -302,34 +315,43 @@ class Site extends Route
 	
 	public function __construct()
 	{
+		parent::__construct();
+		#define('LOGGIN_REQ', true);
+		global $website;
+		$website = $this;
 		$this->get_model_plugin('admin', 'settings');
 		$this->options = new Options();
 		$this->active_options();
+		$this->include_models_system();
+		$this->get_session();
 		$this->include_models_plugins();
-		parent::__construct();
+		
+		
 		if($this->plugin !== 'api')
 			{
 				if($this->error == false)
 					{
-						global $website;
-						$this->get_session();
-						$website = $this;
 						$this->get_html();
 					}
 				else
 					{
-						# echo json_encode($this);
 						echo $this->path;
 						echo '<br>';
 						exit('Route/URL No encontrad@ en la BD.<br>');
 					};
 			}
 		else {
-			define('LOGGIN_REQ', true);
-			$this->get_session();
+			# define('LOGGIN_REQ', true);
 		}
-		
 	}
+	
+	private function include_models_system()
+		{
+			foreach (glob("_cms/plugins/admin/models/*.php") as $f)
+			{
+				include_once($f);
+			}
+		}
 	
 	public function active_options()
 		{
@@ -386,30 +408,22 @@ class Site extends Route
 	
 	public function get_view_plugin($plugin = null, $view = null)
 		{
-			global $website;
-			$website = $this;
 			$this->include_file("_cms/plugins/{$plugin}/views/{$view}_view.php");
 		}
 	
 	public function get_template_theme($template = null)
 		{
-			global $website;
-			$website = $this;
 			$this->include_file("_cms/themes/".THEME_ACTIVE."/templates/{$template}.php");
 			
 		}
 	
 	public function get_controller_plugin($plugin = null, $controller = null)
 		{
-			global $website;
-			$website = $this;
 			$this->include_file("_cms/plugins/{$plugin}/controllers/{$controller}_controller.php");
 		}
 	
 	public function get_model_plugin($plugin = null, $model = null)
 		{
-			global $website;
-			$website = $this;
 			$this->include_file("_cms/plugins/{$plugin}/models/{$model}_model.php");
 		}
 	
@@ -466,7 +480,11 @@ class Site extends Route
 	
 	public function get_section_active()
 	{
-		$this->include_file("_cms/global/navbar-admin.php");
+		if($this->isAdmin() == true && $this->plugin !== 'admin')
+		{
+			$this->include_file("_cms/global/navbar-admin.php");
+		}
+		
 		$this->include_file("_cms/plugins/{$this->page->plugin}/modules/{$this->page->module}/sections/{$this->page->section}.php");
 		if(MODE_DEBUG == true && $this->permissionIs('page_edit') == true)
 		{
@@ -476,8 +494,7 @@ class Site extends Route
 	
 	public function get_html()
 	{
-		global $website;
-		$website = $this;
+		
 		$this->get_includes('template.php');
 	}
 	
@@ -515,6 +532,11 @@ class Site extends Route
 	public function get_global($filename = null) {
 		$this->include_file("_cms/global/{$filename}.php");
 	}
+	
+	public function isAdmin()
+		{
+			return $this->permissionIs('admin');
+		}
 }
 
 // ---- Routers ----

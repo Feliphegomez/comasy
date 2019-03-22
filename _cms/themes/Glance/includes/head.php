@@ -8,10 +8,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 </script>
 
 <!-- Bootstrap Core CSS -->
-<link href="<?php echo $website->get_assets_folder()."css/bootstrap.css"; ?>" rel='stylesheet' type='text/css' />
+<!-- // <link href="<?php echo $website->get_assets_folder()."css/bootstrap.css"; ?>" rel='stylesheet' type='text/css' /> -->
 
 <!-- font-awesome icons CSS -->
-<link href="<?php echo $website->get_assets_folder(); ?>css/font-awesome.css" rel="stylesheet"> 
+<!-- // <link href="<?php echo $website->get_assets_folder(); ?>css/font-awesome.css" rel="stylesheet">  -->
 <!-- //font-awesome icons CSS -->
 
  <!-- side nav css file -->

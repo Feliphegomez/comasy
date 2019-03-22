@@ -277,7 +277,7 @@ ul.submenu li a.active {
 /* //banner */
 /* copyright */
 .wthree_copy_right {
-    margin-top: 8em;
+    margin-top: -8em;
     max-width: 400px;
 }
 
@@ -755,11 +755,11 @@ a.blog-btn {
     }
 
     .he-codes {
-        min-height: auto;
+        min-height: calc(100vh);
     }
 
     .wthree_copy_right {
-        margin-top: 6em;
+        margin-top: -6em;
         max-width: 400px;
         padding-bottom: 2em;
     }
@@ -900,7 +900,7 @@ a.blog-btn {
 
 @media(max-width: 768px) {
     .wthree_copy_right {
-        margin-top: 12em;
+        margin-top: -12em;
     }
 
     .banner_w3lspvt {
@@ -922,7 +922,7 @@ a.blog-btn {
     }
 
     .wthree_copy_right {
-        margin-top: 6em;
+        margin-top: -6em;
     }
 }
 
@@ -950,7 +950,7 @@ a.blog-btn {
     }
 
     .wthree_copy_right {
-        margin-top: 7em;
+        margin-top: -7em;
     }
 
     p {
@@ -983,7 +983,7 @@ a.blog-btn {
     }
 
     .wthree_copy_right {
-        margin-top: 8em;
+        margin-top: -8em;
     }
 
     .welcome-left h1 {
@@ -1015,7 +1015,7 @@ a.blog-btn {
 
 @media(max-width: 440px) {
     .wthree_copy_right {
-        margin-top: 7.7em;
+        margin-top: -7.7em;
     }
 
     .contact-text-w3pvt-info p,
@@ -1044,7 +1044,7 @@ a.blog-btn {
     }
 
     .wthree_copy_right {
-        margin-top: 10em;
+        margin-top: -10em;
     }
 }
 
@@ -1101,7 +1101,7 @@ a.blog-btn {
     }
 
     .wthree_copy_right {
-        margin-top: 8em;
+        margin-top: -8em;
     }
 
     .logo a span {

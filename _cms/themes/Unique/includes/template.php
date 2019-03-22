@@ -6,16 +6,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html lang="es">
-<head>
-	<?php $website->get_includes('head.php'); ?>
-</head>
-<body>
-	<?php $website->get_includes('navigation.php'); ?>
-	<!-- banner -->
-		<?php $website->get_includes('header.php'); ?>
-		<?php $website->get_section_active(); ?>
-	<!-- //banner -->
-	<?php $website->get_includes('scripts.php'); ?>
-</body>
-
+	<head>
+		<?php $website->get_includes('head.php'); ?>
+	</head>
+	<body>
+		<?php $website->get_includes('navigation.php'); ?>
+		<!-- banner -->
+			<?php $website->get_includes('header.php'); ?>
+			<?php $website->get_section_active(); ?>
+		<!-- //banner -->
+		<?php $website->get_includes('scripts.php'); ?>
+	</body>
 </html>

@@ -1,48 +1,21 @@
-<?php global $website, $page_info; ?>
-
-<?php if($website->permissionIs('page_edit') == true){ ?>
 <?php 
-$url = $website->page->url;
-$classesHome = array(
-	'/about.html' => 'about',
-	'/blog.html' => 'blog',
-	'/contact.html' => 'contact',
-	'/gallery.html' => 'gallery',
-	'/' => 'banner_w3lspvt',
-	'/index.html' => 'banner_w3lspvt',
-	'/services.html' => 'services',
-	'/team.html' => 'team',
-);
-$classActive = 'banner_w3lspvt';
+global $website, $page_info;
 
-if(isset($classesHome[$url]))
-	{
-		$classActive = $classesHome[$url];
-	}
+if($website->permissionIs('page_edit') == true){
+	
 ?>
 
-<div id="gjs">
-	<div class="<?php echo $classActive; ?> he-codes"><?php echo ($page_info->content); ?></div>
-		<div data-gjs-draggable="false" data-gjs-editable="false" data-gjs-removable="false">
-			<?php $website->get_includes('footer.php'); ?>
-		</div>
-	</div>
-		<style>
-			<?php echo ($page_info->style); ?>
-		</style>
-	
-</div>
-
-<div style="display: nones">
-	<div class="gjs-logo-cont">
-		<a href="//grapesjs.com">
-			<!-- // <img class="gjs-logo" src="https://grapesjs.com/img/grapesjs-logo-cl.png"> -->
-		</a>
-		<div class="gjs-logo-version"></div>
+<div id="body-page" class="">
+	<div class="">
+		<div id="gjs" class=""><?php echo ($page_info->content); ?></div>
+		<?php $website->get_includes('footer.php'); ?>
 	</div>
 </div>
 
-<div class="ad-cont">ADS</div>
+<div class="ad-cont" style="display: nones">
+	URL: <?php echo $page_info->get_url(); ?>
+	<br>
+</div>
 
 <div id="info-panel-editor" style = "display: none">
 	<div class = "info-panel-label">
@@ -57,428 +30,54 @@ if(isset($classesHome[$url]))
 	</div>
 </div>
 
+<template id="html-origin">
+	<?php echo ($page_info->content); ?>
+</template>
+
 <script>
-var lp = '//grapesjs.com/img/';
-var plp = '//placehold.it/350x250/';
-
-var images = [
-	lp+'team1.jpg',
-	lp+'team2.jpg',
-	lp+'team3.jpg',
-	plp+'78c5d6/fff/image1.jpg',
-	plp+'459ba8/fff/image2.jpg',
-	plp+'79c267/fff/image3.jpg',
-	plp+'c5d647/fff/image4.jpg',
-	plp+'f28c33/fff/image5.jpg',
-	plp+'e868a2/fff/image6.jpg',
-	plp+'cc4360/fff/image7.jpg',
-	lp+'work-desk.jpg',
-	lp+'phone-app.png',
-	lp+'bg-gr-v.png'
-];
-
-
-var options_api = {
-	record: '/contents',
-	list_search_field: 'title',
-	list_filters: [
-		'type,eq,page',
-		'status,eq,publish',
-		'ping_status,eq,open'
-	],
-	editor: {
-		plugins: [
-			'gjs-preset-webpage',
-			'grapesjs-lory-slider',
-			'grapesjs-tabs',
-			'grapesjs-custom-code',
-			'grapesjs-touch',
-			'grapesjs-parser-postcss',
-			'grapesjs-tooltip',
-			'grapesjs-tui-image-editor',
-		],
-		pluginsOpts: {
-			'grapesjs-lory-slider': {
-				sliderBlock: {
-					category: 'Sliders'
-				}
-			},
-			'grapesjs-tabs': {
-				tabsBlock: {
-					category: 'Tabs'
-				}
-			},
-			'gjs-preset-webpage': {
-				modalImportTitle: 'Plantilla de importación',
-				modalImportLabel: '<div style="margin-bottom: 10px; font-size: 13px;">Pegue aquí su HTML / CSS y haga clic en Importar</div>',
-				modalImportContent: function(editor) {
-					return editor.getHtml(); editor.style = editor.getCss();
-				},
-				filestackOpts: null,
-				aviaryOpts: false,
-				blocksBasicOpts: {
-					//blocks: ['link-block', 'quote', 'image', 'video', 'text', 'column1', 'column2', 'column3'],
-					flexGrid: 1
-				},
-				customStyleManager: [
-					{
-						name: 'General',
-						buildProps: ['float', 'display', 'position', 'top', 'right', 'left', 'bottom'],
-						properties:[
-							{
-								name: 'Alineación',
-								property: 'float',
-								type: 'radio',
-								defaults: 'none',
-								list: [
-									{ value: 'none', className: 'fa fa-times'},
-									{ value: 'left', className: 'fa fa-align-left'},
-									{ value: 'center', className: 'fa fa-align-center'},
-									{ value: 'right', className: 'fa fa-align-right'},
-									{ value: 'justify', className: 'fa fa-align-justify'},
-								],
-							},
-							{ property: 'position', type: 'select'}
-						],
-					},{
-						name: 'Dimensión',
-						open: false,
-						buildProps: ['width', 'flex-width', 'height', 'max-width', 'min-height', 'margin', 'padding'],
-						properties: [
-							{
-								id: 'flex-width',
-								type: 'integer',
-								name: 'Ancho',
-								units: ['px', '%'],
-								property: 'flex-basis',
-								toRequire: 1,
-							},{
-								property: 'margin',
-								properties:[
-									{ name: 'Superior', property: 'margin-top'},
-									{ name: 'Derecha', property: 'margin-right'},
-									{ name: 'Inferior', property: 'margin-bottom'},
-									{ name: 'Izquierda', property: 'margin-left'}
-								],
-							},{
-								property  : 'padding',
-								properties:[
-									{ name: 'Superior', property: 'padding-top'},
-									{ name: 'Derecha', property: 'padding-right'},
-									{ name: 'Inferior', property: 'padding-bottom'},
-									{ name: 'Izquierda', property: 'padding-left'}
-								],
-							}
-						],
-					},{
-						name: 'Tipografía',
-						open: false,
-						buildProps: ['font-family', 'font-size', 'font-weight', 'letter-spacing', 'color', 'line-height', 'text-align', 'text-decoration', 'text-shadow'],
-						properties:[
-							{ name: 'Fuente', property: 'font-family'},
-							{ name: 'Grosor', property: 'font-weight'},
-							{ name:  'Color de fuente', property: 'color'},
-							{
-								property: 'text-align',
-								type: 'radio',
-								defaults: 'left',
-								list: [
-									{ value : 'left',  name : 'Izquierda',    className: 'fa fa-align-left'},
-									{ value : 'center',  name : 'Centrar',  className: 'fa fa-align-center' },
-									{ value : 'right',   name : 'Derecha',   className: 'fa fa-align-right'},
-									{ value : 'justify', name : 'Justificar',   className: 'fa fa-align-justify'}
-								],
-							},{
-								property: 'text-decoration',
-								type: 'radio',
-								defaults: 'none',
-								list: [
-									{ value: 'none', name: 'Ninguno', className: 'fa fa-times'},
-									{ value: 'underline', name: 'subrayar', className: 'fa fa-underline' },
-									{ value: 'line-through', name: 'Línea de paso', className: 'fa fa-strikethrough'}
-								],
-							},{
-								property: 'text-shadow',
-								properties: [
-									{ name: 'Posición X', property: 'text-shadow-h'},
-									{ name: 'Posición Y', property: 'text-shadow-v'},
-									{ name: 'Difuminar', property: 'text-shadow-blur'},
-									{ name: 'Color', property: 'text-shadow-color'}
-								],
-							}
-						],
-					},{
-						name: 'Decoraciones',
-						open: false,
-						buildProps: ['opacity', 'background-color', 'border-radius', 'border', 'box-shadow', 'background'],
-						properties: [
-							{
-								type: 'slider',
-								property: 'opacity',
-								defaults: 1,
-								step: 0.01,
-								max: 1,
-								min:0,
-							},{
-								property: 'border-radius',
-								properties  : [
-									{ name: 'Superior', property: 'border-top-left-radius'},
-									{ name: 'Derecha', property: 'border-top-right-radius'},
-									{ name: 'Inferior', property: 'border-bottom-left-radius'},
-									{ name: 'Izquierda', property: 'border-bottom-right-radius'}
-								],
-							},{
-								property: 'box-shadow',
-								properties: [
-									{ name: 'Posición X', property: 'box-shadow-h'},
-									{ name: 'Posición Y', property: 'box-shadow-v'},
-									{ name: 'Difuminar', property: 'box-shadow-blur'},
-									{ name: 'Untada', property: 'box-shadow-spread'},
-									{ name: 'Color', property: 'box-shadow-color'},
-									{ name: 'Tipo de sombra', property: 'box-shadow-type'}
-								],
-							},{
-								property: 'background',
-								properties: [
-									{ name: 'Imagen', property: 'background-image'},
-									{ name: 'Repetir', property:   'background-repeat'},
-									{ name: 'Posición', property: 'background-position'},
-									{ name: 'Archivo Adjunto', property: 'background-attachment'},
-									{ name: 'Tamaño', property: 'background-size'}
-								],
-							},
-						],
-					},{
-						name: 'Extra',
-						open: false,
-						buildProps: ['transition', 'perspective', 'transform'],
-						properties: [{
-							property: 'transition',
-							properties:[
-								{ name: 'Propiedad', property: 'transition-property'},
-								{ name: 'Duración', property: 'transition-duration'},
-								{ name: 'Facilitando', property: 'transition-timing-function'}
-							],
-						},{
-							property: 'transform',
-							properties:[
-								{ name: 'Girar X', property: 'transform-rotate-x'},
-								{ name: 'Girar Y', property: 'transform-rotate-y'},
-								{ name: 'Girar Z', property: 'transform-rotate-z'},
-								{ name: 'Escalar X', property: 'transform-scale-x'},
-								{ name: 'Escalar Y', property: 'transform-scale-y'},
-								{ name: 'Escalar Z', property: 'transform-scale-z'}
-							],
-						}]
-					},{
-						name: 'Flexionar',
-						open: false,
-						properties: [
-							{
-								name: 'Contenedor flexible',
-								property: 'display',
-								type: 'select',
-								defaults: 'block',
-								list: [
-									{ value: 'block', name: 'Inhabilitar'},
-									{ value: 'flex', name: 'Habilitar'}
-								],
-							},{
-								name: 'Flex Padre',
-								property: 'label-parent-flex',
-								type: 'integer',
-							},{
-								name      : 'Dirección',
-								property  : 'flex-direction',
-								type    : 'radio',
-								defaults  : 'row',
-								list    : [
-									{
-										value   : 'row',
-										name    : 'Fila',
-										className : 'icons-flex icon-dir-row',
-										title   : 'Row',
-									},{
-										value   : 'row-reverse',
-										name    : 'Fila inversa',
-										className : 'icons-flex icon-dir-row-rev',
-										title   : 'Row reverse',
-									},{
-										value   : 'column',
-										name    : 'Columna',
-										title   : 'Column',
-										className : 'icons-flex icon-dir-col',
-									},{
-										value   : 'column-reverse',
-										name    : 'Columna inversa',
-										title   : 'Column reverse',
-										className : 'icons-flex icon-dir-col-rev',
-									}
-								],
-							},{
-								name      : 'Justificar',
-								property  : 'justify-content',
-								type    : 'radio',
-								defaults  : 'flex-start',
-								list    : [
-									{
-										value   : 'flex-start',
-										className : 'icons-flex icon-just-start',
-										title   : 'Start',
-									},{
-										value   : 'flex-end',
-										title    : 'End',
-										className : 'icons-flex icon-just-end',
-									},{
-										value   : 'space-between',
-										title    : 'Space between',
-										className : 'icons-flex icon-just-sp-bet',
-									},{
-										value   : 'space-around',
-										title    : 'Space around',
-										className : 'icons-flex icon-just-sp-ar',
-									},{
-										value   : 'center',
-										title    : 'Center',
-										className : 'icons-flex icon-just-sp-cent',
-									}
-								],
-							},{
-								name      : 'Alinear',
-								property  : 'align-items',
-								type    : 'radio',
-								defaults  : 'center',
-								list    : [
-									{
-										value   : 'flex-start',
-										title    : 'Start',
-										className : 'icons-flex icon-al-start',
-									},{
-										value   : 'flex-end',
-										title    : 'End',
-										className : 'icons-flex icon-al-end',
-									},{
-										value   : 'stretch',
-										title    : 'Stretch',
-										className : 'icons-flex icon-al-str',
-									},{
-										value   : 'center',
-										title    : 'Center',
-										className : 'icons-flex icon-al-center',
-									}
-								],
-							},{
-								name: 'Flex Hijos',
-								property: 'label-parent-flex',
-								type: 'integer',
-							},{
-								name:     'Orden',
-								property:   'order',
-								type:     'integer',
-								defaults :  0,
-								min: 0
-							},{
-								name    : 'Flexionar',
-								property  : 'flex',
-								type    : 'composite',
-								properties  : [{
-									  name:     'Crecer',
-									  property:   'flex-grow',
-									  type:     'integer',
-									  defaults :  0,
-									  min: 0
-									},{
-									  name:     'Encogimiento',
-									  property:   'flex-shrink',
-									  type:     'integer',
-									  defaults :  0,
-									  min: 0
-									},{
-									  name:     'Base',
-									  property:   'flex-basis',
-									  type:     'integer',
-									  units:    ['px','%',''],
-									  unit: '',
-									  defaults :  'auto',
-									}],
-							},{
-								name      : 'Alinear',
-								property  : 'align-self',
-								type      : 'radio',
-								defaults  : 'auto',
-								list    : [
-									{
-										value   : 'auto',
-										name    : 'Auto',
-									},{
-										value   : 'flex-start',
-										title    : 'Start',
-										className : 'icons-flex icon-al-start',
-									},{
-										value   : 'flex-end',
-										title    : 'End',
-										className : 'icons-flex icon-al-end',
-									},{
-										value   : 'stretch',
-										title    : 'Stretch',
-										className : 'icons-flex icon-al-str',
-									},{
-										value   : 'center',
-										title    : 'Center',
-										className : 'icons-flex icon-al-center',
-									}
-								],
-							}
-						]
-					}
-				],
-			},
-			'grapesjs-navbar': {
-				tabsBlock: {
-					category: 'Barras de navegacion'
-				}
-			},
-		},
-		
-	}
-};
-
 const editor = grapesjs.init({
-	container: '#gjs',
-	//components: $('#gjs').html(),
+	container : '#gjs',
+	components: html_original,
+	style: `<?php echo ($page_info->style); ?>`,
 	fromElement: true,
+	plugins: options_api.editor.plugins,
+	pluginsOpts: options_api.editor.pluginsOpts,
+	canvas: {
+		styles: [
+			'<?php echo $website->get_assets_global(); ?>css/font-awesome.min.css',
+			'<?php echo $website->get_assets_global(); ?>../libs/bootstrap/v3/css/bootstrap.css',
+			'<?php echo $website->get_assets_folder(); ?>css/style.css'
+		],
+		scripts: [
+			'<?php echo $website->get_assets_global(); ?>js/jquery-1.11.1.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js',
+			'<?php echo $website->get_assets_global(); ?>../libs/bootstrap/v3/js/bootstrap.min.js'
+		],
+	},
 	height: 'calc(100vw)',
 	width: 'auto',
-	storageManager: { type: null, autoload: 0 },
-	panels: {
-		defaults: []
-	},
-	plugins: options_api.editor.plugins,
-	//style: `@import url('<?php echo $website->get_assets_folder(); ?>css/bootstrap.css');`,
+	storageManager: { type: null },
+	panels: { defaults: [] },
 	assetManager: {
 		embedAsBase64: 1,
 		assets: images
 	},
 	styleManager: { clearProperties: 0 },
-	pluginsOpts: options_api.editor.plugins,
-	showOffsets: 1,
+	showOffsets: 0,
 	noticeOnUnload: 0,
-	links: [
-		'<?php echo $website->get_assets_folder(); ?>css/bootstrap.css',
-		'<?php echo $website->get_assets_folder(); ?>css/style.css',
-		'<?php echo $website->get_assets_folder(); ?>css/font-awesome.min.css'
-	]
 });
+
+
 /*
-	storageManager: {
-		type: 'remote',
-		urlStore: 'http://store/endpoint',
-		urlLoad: 'http://load/endpoint',
-		params: {
-			content: editor.getCss(),
-			style: 'Estilo CSS'
-		},
-	}
+storageManager: {
+	type: 'remote',
+	urlStore: 'http://store/endpoint',
+	urlLoad: 'http://load/endpoint',
+	params: {
+		content: editor.getCss(),
+		style: 'Estilo CSS'
+	},
+}
 	
 const storageManager = editor.StorageManager;
 
@@ -644,9 +243,9 @@ pn.addButton('options', [{
 
 // Crear boton cerrar editor
 cmdm.add('close-editor', function() {
-	window.location.hash = '#/';
-	window.location.reload();
+	window.location.replace('<?php echo $page_info->get_url(); ?>');
 });
+
 // Crear boton cerrar editor
 pn.addButton('options', [{
 	id: 'close-editor',
@@ -728,7 +327,7 @@ editor.on('load', function() {
 
 	// Add Settings Sector
 	var traitsSector = $('<div class="gjs-sm-sector no-select">' + 
-		'<div class="gjs-sm-title"><span class="icon-settings fa fa-cog"></span> Settings</div>' + 
+		'<div class="gjs-sm-title"><span class="icon-settings fa fa-cog"></span> Elemento Activo</div>' + 
 	'<div class="gjs-sm-properties" style="display: none;"></div></div>');
 	
 	var traitsProps = traitsSector.find('.gjs-sm-properties');
@@ -748,6 +347,11 @@ editor.on('load', function() {
 	// Move Ad
 	$('#gjs').append($('.ad-cont'));
 });
+
+
+
+
+
 
 </script>
 
