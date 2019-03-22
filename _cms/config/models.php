@@ -141,34 +141,42 @@ class Route
 		$r = array();
 		switch($this->method){
 			case 'POST':
-				if(isset($_POST['url'])){
-					# unset($_POST['url']);
+				if(isset($_POST)){
+					if(isset($_POST['url'])){
+						unset($_POST['url']);
+						# $_POST = null;
+					}
 					$r = ($_POST);
-					# $_POST = null;
 				}
 				return $r;
 				break;
 			case 'PUT':
-				if(isset($_PUT['url'])){
-					# unset($_PUT['url']);
+				if(isset($_PUT)){
+					if(isset($_PUT['url'])){
+						unset($_PUT['url']);
+						# $_PUT = null;
+					}
 					$r = ($_PUT);
-					# $_PUT = null;
 				}
 				return $r;
 				break;
 			case 'DELETE':
-				if(isset($_DELETE['url'])){
-					# unset($_DELETE['url']);
+				if(isset($_DELETE)){
+					if(isset($_DELETE['url'])){
+						unset($_DELETE['url']);
+						# $_DELETE = null;
+					}
 					$r = ($_DELETE);
-					# $_DELETE = null;
 				}
 				return $r;
 				break;
 			case 'GET':
-				if(isset($_GET['url'])){
-					# unset($_GET['url']);
+				if(isset($_GET)){
+					if(isset($_GET['url'])){
+						unset($_GET['url']);
+						# $_GET = null;
+					}
 					$r = ($_GET);
-					# $_GET = null;
 				}
 				return $r;
 				break;

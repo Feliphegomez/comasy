@@ -1,5 +1,6 @@
 <?php global $website, $page_info; ?>
-<style lang="css" scope="post" id="style-post"></style>
+
+<?php if($website->permissionIs('page_edit') == true){ ?>
 <style lang="css" scope="post-edit" id="style-post-edit"></style>
 
 <?php 
@@ -57,119 +58,6 @@ if(isset($classesHome[$url]))
 	</div>
 </div>
 
-
-<style lang="css" scope="post-list" id="style-post-list">
-
-</style>
-<template id="post-list">
-	<div>	
-		<div class="blank-page widget-shadow scroll" id="style-2 div1">
-			<h2 class="title1">Todas las página</h2>
-			<div class="filters row">
-				<div class="form-group col-sm-9">
-					<label for="search-element">Filter</label>
-					<input v-model="searchKey" class="form-control" id="search-element" required/>
-				</div>
-				<div class="form-group col-sm-3">
-					<br>
-					<router-link class="btn btn-default" v-bind:to="{path: '/add-post'}">
-						<span class="glyphicon glyphicon-plus"></span>
-					</router-link>
-				</div>
-			</div>
-			<hr>
-			
-			<!-- Nav pills -->
-			<ul class="nav nav-pills" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" data-toggle="pill" href="#home">Publicados</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="pill" href="#menu1">Menu 1</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="pill" href="#menu2">Menu 2</a>
-				</li>
-			</ul>
-			
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div id="home" class="tab-pane active">
-					<div class="bs-example widget-shadow table-responsive" data-example-id="dataTable">
-						<table class="table table-hover" id="dataTable">
-							<thead>
-								<tr>
-									<th>Titulo</th>
-									<th>Estado</th>
-									<th>Ping Estado</th>
-									<th>F. Creación</th>
-									<th>U. Modificación</th>
-									<th>E. Comentarios</th>
-									<th>#. Comentarios</th>
-									<th class="col-sm-2">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-if="posts===null">
-									<td colspan="4">Loading...</td>
-								</tr>
-								<tr v-else v-for="post in filteredposts">
-									<td>
-										<router-link v-bind:to="{name: 'post', params: {post_id: post.id}}">
-											{{ post.title }}
-										</router-link>
-									</td>
-									<td>{{ post.status }}</td>
-									<td>{{ post.ping_status }}</td>
-									<td>{{ post.date }}</td>
-									<td>{{ post.modified }}</td>
-									<td>{{ post.comment_status }}</td>
-									<td>{{ post.comment_count }}</td>
-									<td>
-										<router-link class="btn btn-warning btn-xs" v-bind:to="{name: 'post-edit', params: {post_id: post.id}}">Edit</router-link>
-										<router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'post-delete', params: {post_id: post.id}}">Delete</router-link>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-				</div>
-				<div id="menu1" class="container tab-pane fade"><br>
-					<h3>Menu 1</h3>
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				</div>
-				<div id="menu2" class="container tab-pane fade"><br>
-					<h3>Menu 2</h3>
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template id="post" class="">
-	<div>
-		
-		<?php if($website->permissionIs('page_edit') == true){ ?>
-			<nav class="navbar sticky-top navbar-dark bg-dark text-white" style="position: fixed; right: 35px; bottom: 35px; top: auto;">
-				<router-link class="navbar-brand" v-bind:to="{name: 'post-edit', params: {post_id: post.id}}">
-					<i class="fa fa-edit"></i>
-					Editar Página
-				</router-link>
-			</nav>
-		<?php } ?>
-
-		<div class="row">
-			<div class="col-sm-12">			
-				<div class="" v-html="post.content">
-					{{ post.content }}
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
 <template id="post-edit">
 	<div>
 		<div class="" id="gjs">
@@ -214,60 +102,6 @@ if(isset($classesHome[$url]))
 	</div>
 </template>
 
-
-<!-- popup-->
-<div id="gal1" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g1.jpg" alt="Popup Image" class="img-fluid" />
-		<h1 class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</h1>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
-<!-- //popup -->
-<!-- popup-->
-<div id="gal2" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g2.jpg" alt="Popup Image" class="img-fluid" />
-		<h2 class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</h2>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
-<!-- //popup -->
-<!-- popup-->
-<div id="gal3" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g3.jpg" alt="Popup Image" class="img-fluid" />
-		<p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</p>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
-<!-- //popup3 -->
-<!-- popup-->
-<div id="gal4" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g4.jpg" alt="Popup Image" class="img-fluid" />
-		<p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</p>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
-<!-- //popup -->
-<!-- popup-->
-<div id="gal5" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g5.jpg" alt="Popup Image" class="img-fluid" />
-		<p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</p>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
-<!-- //popup -->
-<!-- popup-->
-<div id="gal6" class="pop-overlay animate">
-	<div class="popup">
-		<img src="http://cms.ltsolucion.com/_cms/themes/Unique/images/g6.jpg" alt="Popup Image" class="img-fluid" />
-		<p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat dolor.</p>
-		<a class="close" href="#gallery">&times;</a>
-	</div>
-</div>
 
 <script>
 var lp = '//grapesjs.com/img/';
@@ -654,38 +488,6 @@ var options_api = {
 		
 	}
 };
-
-var List = Vue.extend({
-	template: '#post-list',
-	data: function () {
-		return {
-			posts: [],
-			searchKey: ''
-		};
-	},
-	mounted: function () {
-		var self = this;
-		
-		api.get(options_api.record, {
-			params: {
-				filter: options_api.list_filters
-			}
-		}).then(function (response) {
-			self.posts = response.data.records;
-			
-			
-		}).catch(function (error) {
-			console.log(error);
-		});
-	},
-	computed: {
-		filteredposts: function () {
-			return this.posts.filter(function (post) {
-				return this.searchKey=='' || post[options_api.list_search_field].indexOf(this.searchKey) !== -1;
-			},this);
-		}
-	}
-});
 
 var post = Vue.extend({
 	template: '#post',
@@ -1120,57 +922,9 @@ var postEdit = Vue.extend({
 	}
 });
 <?php } ?>
-	
-
-var postDelete = Vue.extend({
-	template: '#post-delete',
-	data: function () {
-		return {
-			post: {
-				id: this.$route.params.post_id,
-				author: 0,
-				date: "",
-				content: "",
-				style: "",
-				title: "",
-				status: "",
-				comment_status: "",
-				ping_status: "",
-				modified: "",
-				content_filtered: "",
-				parent: 0,
-				type: "",
-				mime_type: "",
-				comment_count: 0
-			}
-		};
-	},
-	methods: {
-		deletepost: function () {
-			var post = this.post;
-			api.delete(options_api.record + '/' + post.id).then(function (response) {
-				console.log(response.data);
-			}).catch(function (error) {
-				console.log(error);
-			});
-			router.push('/');
-		}
-	}
-});
 
 var router = new VueRouter({routes:[
-	{ path: '/', component: post, name: 'post'},
-	
-	<?php if($website->permissionIs('page_edit') == true){ ?>
-	{ path: '/edit', component: postEdit, name: 'post-edit'},
-	<?php } ?>
-	
-	// { path: '/:post_id', component: post, name: 'post'},
-	// { path: '/post/:post_id/edit', component: postEdit, name: 'post-edit'},
-	// { path: '/post/:post_id/delete', component: postDelete, name: 'post-delete'},
-	
-	// { path: '/alls', component: List},	
-	// { path: '/', component: List},	
+	{ path: '/', component: postEdit, name: 'post'},
 ]});
 
 app = new Vue({
@@ -1178,6 +932,5 @@ app = new Vue({
 }).$mount('#app');
 </script>
 
-<?php if($website->permissionIs('page_edit') == true){ ?>
 <?php } ?>
 

@@ -41,9 +41,9 @@
 
 
 <!-- Metis Menu -->
-<script src="<?php echo $website->get_assets_folder(); ?>js/metisMenu.min.js"></script>
-<script src="<?php echo $website->get_assets_folder(); ?>js/custom.js"></script>
-<link href="<?php echo $website->get_assets_folder(); ?>css/custom.css" rel="stylesheet">
+<script src="<?php echo $website->get_assets_global(); ?>js/metisMenu.min.js"></script>
+<script src="<?php echo $website->get_assets_global(); ?>js/custom.js"></script>
+<link href="<?php echo $website->get_assets_global(); ?>css/custom.css" rel="stylesheet">
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
