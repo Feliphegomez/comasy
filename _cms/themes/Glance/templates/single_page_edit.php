@@ -706,7 +706,7 @@ pn.addButton('options', [{
 
 // Crear boton cerrar editor
 cmdm.add('close-editor', function() {
-	window.location.replace('<?php echo $page_info->get_url(); ?>');
+	window.location.replace('<?php echo "{$website->options->admin_path}page/?page_id=".$page_info->id; ?>');
 });
 
 // Crear boton cerrar editor

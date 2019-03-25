@@ -83,10 +83,14 @@ class PageSingle extends Page
 class Pages 
 {
 	public $list = array();
+	public $publish = array();
+	public $draft = array();
+	public $trash = array();
+	public $other = array();
 	
-	public function list()
+	public function list($type = 'publish')
 		{
-			return $this->data;
+			return $this->{$type};
 		}
 	
 	public function __construct()
@@ -104,7 +108,22 @@ class Pages
 		{
 			foreach($array as $item)
 				{
-					$this->data[] = new Page($item);
+                    if($item->status == 'publish')
+                        {
+                            $this->publish[] = new Page($item);
+                        }
+                    else if($item->status == 'draft')
+                        {
+                            $this->draft[] = new Page($item);
+                        }
+                    else if($item->status == 'trash')
+                        {
+                            $this->trash[] = new Page($item);
+                        }
+                    else 
+                        {
+                            $this->other[] = new Page($item);
+                        }
 				}
 		}
 
@@ -112,7 +131,7 @@ class Pages
 		{
 			$sql_r = "
 				SELECT `contents`.*, `routes`.`url` as `url`
-					FROM `contents` 
+					FROM `contents`
 				LEFT JOIN `routes` ON
 					`contents`.`id` = `routes`.`id_route`
 				WHERE 
@@ -126,14 +145,16 @@ class Pages
 						SELECT `contents`.*, `routes`.`url` as `url`
 							FROM `contents` 
 						LEFT JOIN `routes` ON
-							`contents`.`id` = `routes`.`id_route`
+							`contents`.`id` = `routes`.`id_route` 
 						WHERE 
-							`contents`.`type` IN ('page') ";
+							`contents`.`type` IN ('page') ORDER BY `contents`.`status` ASC";
 					}
 			return $sql_r;
 		}
 	
 }
+
+
 
 #echo json_encode($website->permissionIs('page_edit'));
 #exit();

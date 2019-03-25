@@ -65,11 +65,11 @@
 #navbar-adminpanel a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: #ccc;
   text-align: center;
   padding: 5px;
   text-decoration: none;
-  height: 40px;
+  height: 35px;
 }
 
 /* Page content */
@@ -90,9 +90,8 @@
 }
 </style>
 
-
 <div id="navbar-adminpanel">
-  <a href="#">
+	<a href="#">
 		<svg viewBox="0 0 960 300">
 			<symbol id="s-text">
 				<text text-anchor="middle" x="50%" y="80%">COMASY </text>
@@ -107,6 +106,12 @@
 			</g>
 		</svg>
 		<!--<address>By FelipheGomez</address>-->
-  </a>
-  <a href="<?php echo $this->options->admin_path; ?>">Admin Panel</a>
+	</a>
+	<a href="<?php echo $this->options->admin_path; ?>">Admin Panel</a>
+	<?php
+		if($this->page->plugin == 'pages' && $this->page->module == 'single' && $this->page->section == 'view' && (int) $this->page->id_route > 0)
+			{
+				echo "<a href=\"".HOME_PATH."pages/edit/?page_id={$this->page->id_route}\">Editar página</a>";
+			}
+	?>
 </div>
