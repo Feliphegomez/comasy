@@ -13,11 +13,56 @@ El funcionamiento básico del patrón MVC, puede resumirse en:
 Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php-model-view-controller-mvc/
 
 ## Estructura
-- _cms
-	- controllers
-	- db
-	- models
-	- views
+~~~sh
+	.
+	├── _cms
+	│   ├── config
+	│   ├── global
+	│   │   ├── css
+	│   │   ├── fonts
+	│   │   └── js
+	│   ├── plugins
+	│   │   ├── pages
+	│   │   │   ├── controllers
+	│   │   │   ├── models
+	│   │   │   ├── modules
+	│   │   │   │   ├── list
+	│   │   │   │   │   └── sections
+	│   │   │   │   └── single
+	│   │   │   │       └── sections
+	│   │   │   └── views
+	│   │   └── system
+	│   │       ├── controllers
+	│   │       ├── models
+	│   │       ├── modules
+	│   │       │   ├── dashboard
+	│   │       │   │   └── sections
+	│   │       │   ├── login
+	│   │       │   │   └── sections
+	│   │       │   ├── roles
+	│   │       │   │   └── sections
+	│   │       │   └── users
+	│   │       │       └── sections
+	│   │       └── views
+	│   └── themes
+	│       ├── Glance
+	│       │   ├── css
+	│       │   ├── fonts
+	│       │   ├── images
+	│       │   ├── includes
+	│       │   ├── js
+	│       │   │   └── images
+	│       │   └── templates
+	│       └── Unique
+	│           ├── css
+	│           ├── fonts
+	│           ├── images
+	│           ├── includes
+	│           └── templates
+	└── docs
+~~~
+
+
 
 ### Variables
 
