@@ -13,8 +13,10 @@ define('PASS_DB', 'feliphegomez_cms');
 // TABLES DB
 define('TABLE_ROUTE', 'routes');
 define('TABLE_OPTIONS', 'options');
+define('TABLE_MENUS', 'menus');
+define('TABLE_ROLES', 'permissions');
+define('TABLE_SESSIONS', 'sessions');
 
- 
 # ---------------- ABSOLUTE ----------------
 // Active Errors PHP
 if(MODE_DEBUG == true)
@@ -23,3 +25,9 @@ if(MODE_DEBUG == true)
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 }
+
+
+ini_set('max_user_connections', 1);
+ini_set('max_connections', 1);
+
+date_default_timezone_set('America/Bogota');

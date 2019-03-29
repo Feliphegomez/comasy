@@ -630,12 +630,8 @@ cmdm.add('save-content', function() {
 		style: temp_new_style
 	}).then(function (response) {
 		console.log(response.data);
-		//router.push('/post/' + self.post.id);
-		
-		alert('guardado');
 		
 		/// PENDIENTE
-		
 		api.post(options_api.record, {
 			author: <?php echo ($website->session->id); ?>,
 			title: '<?php echo ($page_info->title); ?>',
@@ -645,14 +641,15 @@ cmdm.add('save-content', function() {
 			style: temp_new_style
 		}).then(function (response) {
 			console.log(response.data);
-			//router.push('/post/' + self.post.id);
-			alert('guardado');
+			$.notify("La pagina se guardo con éxito.", "success");
 		}).catch(function (error) {
 			console.log(error);
+			$.notify("Error guardando la revision de la pagina.", "error");
 		});
 		
 	}).catch(function (error) {
 		console.log(error);
+		$.notify("Error guardando el contenido.", "error");
 	});
 });
 
@@ -695,7 +692,7 @@ btnEdit.onclick = function() {
 
 // Crear boton editar codigo
 pn.addButton('options', [{
-		id: 'edit',
+	id: 'edit',
 	className: 'fa fa-edit',
 	command: 'html-edit',
 	attributes: {

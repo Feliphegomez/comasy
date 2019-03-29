@@ -4,7 +4,14 @@ RewriteEngine On
 
 # BEGIN COMASY
 <IfModule mod_rewrite.c>
+    Options +FollowSymLinks
 	RewriteEngine On
+    # si no existe un archivo que coincida con la solicitud...
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # y si no termina con una barra, redireccionar a la misma dirección pero con la barra
+    RewriteCond %{REQUEST_URI} !^(.*).(html|css|js|vue|json|png|jpg|jpeg)
+    RewriteRule ^(.*[^/]$) $1/ [R,QSA,L]
+
 	RewriteBase /
 	RewriteRule ^index\.php$ - [L,QSA]
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -17,6 +24,7 @@ RewriteEngine On
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_URI} ^/api/
 	RewriteRule ^api/(.*)$ api.php/records/$1 [L,QSA]
+
 </IfModule>
 # END COMASY
 

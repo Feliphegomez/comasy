@@ -7,70 +7,82 @@
 - Comas no son ilegales, pero cuando se utilizan programáticamente pueden producir problemas pues en métodos con diferentes parámetros, el separador es una coma.
 
 ## Estructura
-	- _cms
-		- plugins
-			- {nombre_plugin}
-				- controllers
-					- {nombre_controlador}
-				- models
-				- modules
-					- {nombre_modulo}
-						- sections
-							- {nombre_section}
-				- views
-					- {nombre_visor}
-		- themes
-			- {nombre_tema} (donde se va a crear la ejecucion.)
-				- templates
-					- {nombre_modelo}
+	_cms/
+	└── plugins
+	    └── {plugin-name}
+	         ├── controllers
+	         │   └── {controller-name}.php
+	         ├── models
+	         │   └── {model-name}.php
+	         ├── modules
+	         │   └── {module-name}
+	         │       └── sections
+	         │           └── {section-name}.php
+	         └── views
+	             └── {view-name}.php
 
-## Route - parametros
+### Mas Información
+| Variable | Descripcion |
+|----------|-------------|
+| plugin-name | Nombre del Plugin (Plugin). |
+| controller-name | Nombre del Controllador (Controller). |
+| model-name | Nombre del Modelo (Model). |
+| module-name | Nombre del Modulo (Module). |
+| section-name | Nombre de la Seccion (Section). |
+| view-name | Nombre del Visor (View). |
+|----------|-------------|
+
+### Route - Parametros SQL
 - URL
-- nombre_plugin
-- nombre_modulo
-- nombre_section
+- nombre del plugin = {plugin-name}
+- nombre del modulo = {module-name}
+- nombre de la section = {section-name}
 - ID o Selector adicional para mejor filtrado o crear archivos dinamicos.
 
 ## Ejemplos de archivos
 
-### Section - _cms/plugins/{nombre_plugin}/modules/{nombre_modulo}/views/{nombre_section}.php
+### Seccion
+La seccion se debe alojar en el archivo `_cms/plugins/{plugin-name}/modules/{nombre_modulo}/sections/{section-name}.php`
 ```php
 <?php 
-	$website->get_controller_plugin('nombre_plugin', 'nombre_controlador'); // 
-	$website->get_view_plugin('nombre_plugin', 'nombre_visor');
+	// Controlador a utilizar
+	$website->get_controller_plugin('{plugin-name}', '{controller-name}');
+	// Visor o Vista a utilizar
+	$website->get_view_plugin('{plugin-name}', '{view-name}');
 ```
 
-### Controller - _cms/plugins/{nombre_plugin}/controllers/{nombre_controlador}_controller.php
-#### Ejemplo 1
+### Controlador
+El controlador se debe alojar en el archivo `_cms/plugins/{plugin-name}/controllers/{controller-name}_controller.php`
+
 ```php
 <?php 
-	$id = (int) $website->page->id_route;
-	global $info;
-
-	if($id > 0) 
-		{
-			$info = new Model($id);
-		}
-	else if(isset($website->fields['id'])) 
-		{
-			$id_field = (int) $website->fields['id'];
-			if($id_field > 0)
-				{
-					$id_field = (int) $website->fields['id'];
-					$info = new Model($id_field);
-				}
-		}
+	// Variaciones o Condiciones
+	...
 ```
 
-### View - _cms/plugins/{nombre_plugin}/views/{nombre_visor}_view.php
+### Vista o Visor
+El visor o vista se debe alojar en el archivo `_cms/plugins/{plugin-name}/views/{view-name}_view.php`
+
 ```php
 <?php 
-	$website->get_template_theme(nombre_modelo);
+	// Esta es el nombre de la Template del Tema.
+	$website->get_template_theme({template-name});
 ```
 
-### View - _cms/themes/{nombre_tema}/templates/{nombre_modelo}.php
+### Modelo
+El modelo se debe alojar en el archivo `_cms/plugins/{plugin-name}/models/{model-name}_model.php`
+
 ```php
 <?php 
-	global $website, $info;
-	// Tu Codigo ...
+	// Ejemplo # 1
+	class MyModel extends BaseClass
+	{
+		...
+	}
+	
+	// Ejemplo # 2
+	class MyModel 
+	{
+		...
+	}
 ```

@@ -68,8 +68,6 @@ function render_tree_table_html($array = null, $class = 'table table-responsive 
 		return $html;
 	}
 
-
-
 function tree_table($array = null)
 	{
 		$table = array();
@@ -96,7 +94,6 @@ function tree_table($array = null)
 		return render_tree_table_html($table);
 	}
 
-
 function strip_tags_content($text, $tags = '', $invert = FALSE)
 	{
 		preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
@@ -119,7 +116,6 @@ function strip_tags_content($text, $tags = '', $invert = FALSE)
 		return $text; 
 	}
 
-
 function rip_tags($string) 
 	{
 		// ----- remove HTML TAGs ----- 
@@ -135,3 +131,88 @@ function rip_tags($string)
 		
 		return $string;
 	}
+
+function menu_render_sidebar($nodes = null, $child = false)
+	{
+		global $website;
+		$h = '';
+		
+		if($child == true) { $tree_class = "treeview"; } else { $tree_class = ''; };
+		
+		foreach($nodes->nodes as $item)
+		{
+			if(count($item->nodes) == 0)
+				{
+					$h .= "<li class=\"{$tree_class}\">
+						<a href=\"{$website->site_url}{$item->content->link}\">
+							<i class=\"{$item->content->icon}\"></i> 
+							<span>{$item->title}</span>
+						</a>
+					</li>";
+				}
+			else 
+				{
+					$h .= "<li class=\"{$tree_class}\">
+						<a href=\"{$item->content->link}\">
+							<span>{$item->title}</span>
+							<i class=\"{$item->content->icon}\"></i>
+						</a>
+						<ul class=\"treeview-menu\">";
+							$h .= menu_render_sidebar($item, true);
+							$h .= "
+						</ul>
+					</li>";
+				}
+		}
+		return $h;
+	};
+
+function menu_render_simple($nodes = null)
+	{
+		global $website;
+		$h = '';
+		
+		foreach($nodes->nodes as $item)
+		{
+			if(count($item->nodes) == 0)
+				{
+					$h .= "<li><a href=\"{$website->site_url}{$item->content->link}\">{$item->title}</a></li>";
+				}
+			else 
+				{
+					$h .= "<li><a href=\"{$website->site_url}{$item->content->link}\">{$item->title}</a></li>";
+					
+					#$h .= menu_render_simple($item);
+				}
+		}
+		return $h;
+	};
+
+function isJSON($string){
+	$rr = false;
+	# return is_string($string) && is_array(json_decode($string, true)) ? true : false;
+	# return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+	#$string = (object) $string;
+	# $dd_1 = @json_decode(@json_encode(@json_decode($string, true), true), true);
+	# $dd_2 = @json_decode($string, true);
+	$dd_1 = json_encode(is_string($string) && is_array(json_decode($string, true)) ? true : false);
+	$dd_2 = json_encode((json_last_error() == JSON_ERROR_NONE) ? true : false);
+	
+	$is_string = (is_string($string));
+	$is_array = (is_array(@json_decode($string, true)));
+	$is_json = ((json_last_error() == JSON_ERROR_NONE) ? true : false);
+	
+	if(
+		$is_string == false
+		&& $is_array == false
+		&& $is_json == true
+	)
+		{
+			$rr = true;
+		}
+		# echo json_encode($string)."<br>";
+		# echo "is_string: {$is_string}<br>";
+		# echo "is_array: {$is_array}<br>";
+		# echo "is_json: {$is_json}<br>";
+	return $rr;
+}

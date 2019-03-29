@@ -6,16 +6,11 @@ define('permissions_page_edit', $website->permissionIs('page_edit'));
 
 class Page extends BaseClass
 {
-	public $id, $author, $date, $title, $content, $style, $status, $comment_status, $ping_status, $pinged, $modified, $content_filtered, $parent, $type, $mime_type, $url;
+	public $id, $author, $date, $title, $content, $style, $status, $comment_status, $ping_status, $pinged, $modified, $content_filtered, $parent, $type, $mime_type, $url, $route_id;
 	
 	public function __construct($params = null)
 		{
-			$this->setData((object) $params);
-		}
-
-	public function set_data($params = null)
-		{
-			$this->setData((object) $params);
+			$this->set_data((object) $params);
 		}
 	
 	public function get_url()
@@ -56,7 +51,7 @@ class PageSingle extends Page
 	private function get_sql()
 		{
 			$sql_r = "
-					SELECT `contents`.*, `routes`.`url` as `url`
+					SELECT `contents`.*, `routes`.`url` as `url`, `routes`.`id` as `route_id`, `routes`.`theme` as `route_theme`
 						FROM `contents` 
 					LEFT JOIN `routes` ON
 						`contents`.`id` = `routes`.`id_route`
@@ -68,7 +63,7 @@ class PageSingle extends Page
 			if(permissions_page_edit == true) 
 				{
 			$sql_r = "
-					SELECT `contents`.*, `routes`.`url` as `url`
+					SELECT `contents`.*, `routes`.`url` as `url`, `routes`.`id` as `route_id`, `routes`.`theme` as `route_theme`
 						FROM `contents` 
 					LEFT JOIN `routes` ON
 						`contents`.`id` = `routes`.`id_route`
@@ -130,7 +125,7 @@ class Pages
 	private function get_sql()
 		{
 			$sql_r = "
-				SELECT `contents`.*, `routes`.`url` as `url`
+				SELECT `contents`.*, `routes`.`url` as `url`, `routes`.`id` as `route_id`, `routes`.`theme` as `route_theme`
 					FROM `contents`
 				LEFT JOIN `routes` ON
 					`contents`.`id` = `routes`.`id_route`
@@ -142,7 +137,7 @@ class Pages
 				if(permissions_page_edit == true) 
 					{
 						$sql_r = "
-						SELECT `contents`.*, `routes`.`url` as `url`
+						SELECT `contents`.*, `routes`.`url` as `url`, `routes`.`id` as `route_id`, `routes`.`theme` as `route_theme`
 							FROM `contents` 
 						LEFT JOIN `routes` ON
 							`contents`.`id` = `routes`.`id_route` 
@@ -154,7 +149,3 @@ class Pages
 	
 }
 
-
-
-#echo json_encode($website->permissionIs('page_edit'));
-#exit();

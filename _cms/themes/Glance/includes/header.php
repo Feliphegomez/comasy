@@ -8,7 +8,7 @@
 				<!--toggle button start-->
 				<button id="showLeftPush"><i class="fa fa-bars"></i></button>
 				<!--toggle button end-->
-				<div class="profile_details_left"><!--notifications of menu start -->
+				<div class="profile_details_left">
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">4</span></a>
@@ -142,13 +142,9 @@
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
-				<!--notification menu end -->
 				<div class="clearfix"> </div>
 			</div>
 			<div class="header-right">
-				
-				
-				<!--search-box-->
 				<div class="search-box">
 					<form class="input">
 						<input class="sb-search-input input__field--madoka" placeholder="Search..." type="search" id="input-31" />
@@ -158,7 +154,7 @@
 							</svg>
 						</label>
 					</form>
-				</div><!--//end-search-box-->
+				</div>
 				
 				<div class="profile_details">		
 					<ul>
@@ -167,8 +163,10 @@
 								<div class="profile_img">	
 									<span class="prfil-img"><img src="<?php echo $website->get_assets_folder(); ?>images/2.jpg" alt=""> </span> 
 									<div class="user-name">
-										<p>Admin Name</p>
-										<span>Administrator</span>
+										<p><?php echo "{$website->session->names} "; ?></p>
+                                        <?php if($website->isAdmin() == true){ ?>
+    										<span>Administrator</span>
+                                        <?php } ?>
 									</div>
 									<i class="fa fa-angle-down lnr"></i>
 									<i class="fa fa-angle-up lnr"></i>
@@ -176,10 +174,10 @@
 								</div>	
 							</a>
 							<ul class="dropdown-menu drp-mnu">
-								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> 
-								<li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
-								<li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li> 
-								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
+								<!-- // <li> <a href="#"><i class="fa fa-cog"></i> Opciones</a> </li> -->
+								<li> <a href="<?php echo "{$website->options->admin_path}user/?user_id={$website->session->id}"; ?>"><i class="fa fa-user"></i> Mi Cuenta</a> </li>
+								<!-- // <li> <a href="#"><i class="fa fa-suitcase"></i> Perfil</a> </li> -->
+								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Salir</a> </li>
 							</ul>
 						</li>
 					</ul>

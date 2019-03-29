@@ -34,3 +34,19 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<?php echo $website->get_assets_folder(); ?>js/bootstrap.js"> </script>
+
+
+
+<script src="<?php echo $website->get_assets_folder(); ?>js/Chart.bundle.js"></script>
+<script src="<?php echo $website->get_assets_folder(); ?>js/utils.js"></script>
+<!-- for index page weekly sales java script -->
+<script src="<?php echo $website->get_assets_folder(); ?>js/SimpleChart.js"></script>
+
+
+<!-- for amcharts js -->
+<script src="<?php echo $website->get_assets_folder(); ?>js/amcharts.js"></script>
+<script src="<?php echo $website->get_assets_folder(); ?>js/serial.js"></script>
+<script src="<?php echo $website->get_assets_folder(); ?>js/export.min.js"></script>
+<link rel="stylesheet" href="<?php echo $website->get_assets_folder(); ?>css/export.css" type="text/css" media="all">
+<script src="<?php echo $website->get_assets_folder(); ?>js/light.js"></script>
+<script src="<?php echo $website->get_assets_folder(); ?>js/index1.js"></script>

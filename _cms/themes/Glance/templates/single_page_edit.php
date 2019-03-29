@@ -5,12 +5,17 @@ if($website->permissionIs('page_edit') == true){
 	
 ?>
 
-<div id="body-page" class="">
-	<div class="">
+<div class="main-page">
+	<h2 class="title1"><?php echo ($page_info->title); ?></h2>
+	<div id="body-page" class="blank-page widget-shadow scroll" id="style-2 div1">
 		<div id="gjs" class=""><?php echo ($page_info->content); ?></div>
-		<?php $website->get_includes('footer.php'); ?>
 	</div>
+    <style>
+		<?php echo ($page_info->style); ?>
+    </style>
+    <a href="<?php echo $website->options->admin_path."pages/"; ?>" class="btn btn-sm btn-secondary"> Regresar</a>
 </div>
+
 
 <div class="ad-cont" style="display: nones">
 	URL: <?php echo $page_info->get_url(); ?>
@@ -35,7 +40,6 @@ if($website->permissionIs('page_edit') == true){
 </template>
 
 <script>
-
 var lp = '//grapesjs.com/img/';
 var plp = '//placehold.it/350x250/';
 var html_original = $("#html-origin").html();
@@ -630,11 +634,7 @@ cmdm.add('save-content', function() {
 		style: temp_new_style
 	}).then(function (response) {
 		console.log(response.data);
-		//router.push('/post/' + self.post.id);
 		
-		alert('guardado');
-		
-		/// PENDIENTE
 		
 		api.post(options_api.record, {
 			author: <?php echo ($website->session->id); ?>,
@@ -645,14 +645,15 @@ cmdm.add('save-content', function() {
 			style: temp_new_style
 		}).then(function (response) {
 			console.log(response.data);
-			//router.push('/post/' + self.post.id);
-			alert('guardado');
+			$.notify("La pagina se guardo con éxito.", "success");
 		}).catch(function (error) {
 			console.log(error);
+			$.notify("Error guardando la revision de la pagina.", "error");
 		});
 		
 	}).catch(function (error) {
 		console.log(error);
+		$.notify("Error guardando el contenido.", "error");
 	});
 });
 
@@ -686,6 +687,7 @@ codeViewer.set({
 });
 btnEdit.innerHTML = 'Edit';
 btnEdit.className = pfx + 'btn-prim ' + pfx + 'btn-import';
+
 btnEdit.onclick = function() {
 	var code = codeViewer.editor.getValue();
 	editor.DomComponents.getWrapper().set('content', '');
@@ -695,7 +697,7 @@ btnEdit.onclick = function() {
 
 // Crear boton editar codigo
 pn.addButton('options', [{
-		id: 'edit',
+	id: 'edit',
 	className: 'fa fa-edit',
 	command: 'html-edit',
 	attributes: {
@@ -706,7 +708,7 @@ pn.addButton('options', [{
 
 // Crear boton cerrar editor
 cmdm.add('close-editor', function() {
-	window.location.replace('<?php echo "{$website->options->admin_path}page/?page_id=".$page_info->id; ?>');
+	window.location.replace('<?php echo "{$website->options->admin_path}pages/"; ?>');
 });
 
 // Crear boton cerrar editor
@@ -770,7 +772,7 @@ for (var i = 0; i < titles.length; i++) {
 	el.setAttribute('title', '');
 }
 
-// Show borders by default
+// Mostrar bordes por defecto
 pn.getButton('options', 'sw-visibility').set('active', 1);
 /*
   // Store and load events
@@ -810,12 +812,6 @@ editor.on('load', function() {
 	// Move Ad
 	$('#gjs').append($('.ad-cont'));
 });
-
-
-
-
-
-
 </script>
 
 <?php 

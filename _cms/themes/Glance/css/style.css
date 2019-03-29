@@ -86,7 +86,7 @@ span.dashboard_text {
 .header-left {
     float: left;
     width: 50%;
-    margin-left: 15%;
+    margin-left: 17%;
 	position: relative;
 }
 .header-right {
@@ -145,7 +145,7 @@ button#showLeftPush:hover {
 	transition: all 0.3s ease;
 }
 .cbp-spmenu-push div#page-wrapper {
-    margin: 0 0 0 16.5em;
+    margin: 0 0 0 14.6em;
 	transition:.5s all;
 	-webkit-transition:.5s all;
 	-moz-transition:.5s all;
