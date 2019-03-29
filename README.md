@@ -81,22 +81,22 @@ Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php
 		},
 		"id": "1",
 		"username": "admin",
-		"permissions": "{\"admin\": true, \"master\": true, \"page_edit\": true, \"page_create\": true, \"page_delete\": true}",
+		"permissions": "{ ... }",
 		"names": "Administrador",
 		"surname": "System",
 		"second_surname": "COMASY",
 		"hash": "admin",
-		"user_ip": "179.13.240.150"
+		"user_ip": "0.0.0.0"
 	  },
 	  "session_server": {
 		"id": "1",
 		"username": "admin",
-		"permissions": "{\"admin\": true, \"master\": true, \"page_edit\": true, \"page_create\": true, \"page_delete\": true}",
+		"permissions": " ... ",
 		"names": "Administrador",
 		"surname": "System",
 		"second_surname": "COMASY",
 		"hash": "admin",
-		"user_ip": "179.13.240.150"
+		"user_ip": "0.0.0.0"
 	  },
 	  "options": {
 		"themes": [
@@ -108,25 +108,17 @@ Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php
 			"text": "None",
 			"value": "none"
 		  },
-		  {
-			"text": "Glance",
-			"value": "Glance"
-		  },
-		  {
-			"text": "Unique",
-			"value": "Unique"
-		  }
+		  ...
 		],
-		"site_url": "http:\/\/cms.ltsolucion.com\/",
+		"site_url": "http:\/\/comasy.demo\/",
 		"site_name_sm": "CMS",
 		"site_name_md": "Sistema de gesti\u00f3n de contenidos",
 		"site_name_lg": "Sistema de gesti\u00f3n de contenidos by FelipheGomez",
 		"site_description": "Sistema de gesti\u00f3n de contenidos creado por Andres Felipe Gomez Maya o FelipheGomez.",
-		"home_path": "http:\/\/cms.ltsolucion.com\/",
-		"admin_path": "http:\/\/cms.ltsolucion.com\/admin\/",
-		"login_path": "http:\/\/cms.ltsolucion.com\/ingresemos.html",
+		"home_path": "http:\/\/comasy.demo\/",
+		"admin_path": "http:\/\/comasy.demo\/ingresemos.html",
 		"use_smilies": "1",
-		"admin_email": "webmaster@ltsolucion.com",
+		"admin_email": "webmaster@comasy.demo",
 		"mailserver_url": "mail.example.com",
 		"mailserver_login": "login@example.com",
 		"mailserver_pass": "password",
@@ -168,14 +160,14 @@ Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php
 	  },
 	  "method": "GET",
 	  "path": "\/admin\/",
-	  "fullpath": "http:\/\/cms.ltsolucion.com:80\/admin\/",
-	  "site_url": "http:\/\/cms.ltsolucion.com",
+	  "fullpath": "http:\/\/comasy.demo:80\/admin\/",
+	  "site_url": "http:\/\/comasy.demo",
 	  "action": "view",
 	  "fields": [
 
 	  ],
 	  "scheme": "http",
-	  "server_name": "cms.ltsolucion.com",
+	  "server_name": "comasy.demo",
 	  "server_port": "80",
 	  "plugin": "admin",
 	  "module": null,
