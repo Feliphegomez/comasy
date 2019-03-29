@@ -45,20 +45,6 @@ Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php
 	│   │       │       └── sections
 	│   │       └── views
 	│   └── themes
-	│       ├── Glance
-	│       │   ├── css
-	│       │   ├── fonts
-	│       │   ├── images
-	│       │   ├── includes
-	│       │   ├── js
-	│       │   │   └── images
-	│       │   └── templates
-	│       └── Unique
-	│           ├── css
-	│           ├── fonts
-	│           ├── images
-	│           ├── includes
-	│           └── templates
 	└── docs
 ~~~
 
