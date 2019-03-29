@@ -180,33 +180,14 @@ Esquema muy claro del funcionamiento del MVC en PHP de http://www.phpzag.com/php
 ### Session
 Eso es todo listo. Todo lo que tienes que hacer ahora es llamarlo en una línea.
 
+~~~php
+<?php 
+	require_once("_cms/autoload.php");
+	$website = new Site();
 ~~~
-	$ session  =  new Session ( ) ;
-~~~
-Y configura nuestros datos de sesión con la $_SESSIONvariable como de costumbre.
 
-~~~
-	$session = new Session();
-	$_SESSION['user_id'] = 1;
-~~~
 La ID de usuario anterior se almacenará dentro del campo "datos" en su base de datos, en un formato serializado que la clase podrá analizar.
 
-Ya que se maneja desde una clase, la variable también se llamará session_write_close();por sí misma cuando la página termine, por lo que no es necesario que lo llame usted mismo. Sin embargo, si desea finalizarlo antes, siempre puede llamar al destructor manualmente.
+Así que ahí lo tienen, una CMS simple que puede usar para cualquier proyecto web CRM.
 
-~~~
-	$session = new Session();
-	// ... extra code ...
-	$session->__destruct();
-~~~
-
-La sesión también se puede eliminar (como cuando se cierra la sesión) y para ello solo llamamos al método de eliminación.
-
-~~~
-	$session = new Session();
-// ... extra code ...
-$session->__destruct();
-~~~
-
-Así que ahí lo tienen, una clase de manejo de sesión simple que puede usar para cualquier proyecto web.
-
-Además, si usa esto en sus aplicaciones, tenga la amabilidad de dejar el texto del encabezado adicional en la parte superior.
+Además, si usa esto en sus aplicaciones, tenga la amabilidad de dejar los texto adicionales de autores y colaboradores.
