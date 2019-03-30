@@ -155,7 +155,7 @@ function menu_render_sidebar($nodes = null, $child = false)
 					$h .= "<li class=\"{$tree_class}\">
 						<a href=\"{$item->content->link}\">
 							<span>{$item->title}</span>
-							<i class=\"{$item->content->icon}\"></i>
+							<i class=\"{$item->content->icon} pull-right\"></i>
 						</a>
 						<ul class=\"treeview-menu\">";
 							$h .= menu_render_sidebar($item, true);
@@ -216,3 +216,47 @@ function isJSON($string){
 		# echo "is_json: {$is_json}<br>";
 	return $rr;
 }
+
+function menu_admin_edit($nodes = null, $child = false, $margin = 0)
+	{
+		global $website;
+		$h = '';
+		
+		if($child == true) { $tree_class = "nav nav-pills nav-stacked"; } else { $tree_class = 'dropdown'; };
+		
+		$i = 0;
+		foreach($nodes->nodes as $item)
+			{
+				$h .= "<li class=\"{$tree_class}\">";
+					$h .= "<button class=\"btn btn-success\" onclick=\"javascript:COMASY.menus.new_item('{$item->id}');\"> <i class=\"fa fa-plus-circle\"></i> </button>";
+					$h .= "<button class=\"btn  dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\"> <i class=\"{$item->content->icon}\"></i> {$item->title} <span class=\"caret\"></span></button>";
+					$h .= "<ul class=\"dropdown-menu\">";
+						$h .= "<li><a href=\"javascript:COMASY.menus.edit_item({$item->id});\"> <i class=\"fa fa-edit\"></i> Editar </a></li>";
+						$h .= "<li><a href=\"javascript:COMASY.menus.delete_item({$item->id});\"> <i class=\"fa fa-trash\"></i> Eliminar</a></li>";
+							
+					$h .= "</ul>";
+				$h .= "</li>";
+					
+						if(count($item->nodes) > 0)
+							{
+								$margin = $margin + 15;
+								$h .= "<li style=\"margin-left: {$margin}px;\">";
+									$h .= "<ul class=\"nav nav-pills nav-stacked\">";
+										$h .= menu_admin_edit($item, true, $margin);
+									$h .= "</ul>";
+								$h .= "</li>";
+							}
+				$i++;
+			}
+					
+					
+					/*$h .= "<li class=\"\"><a href=\"javascript:COMASY.menus.new_item('{$item->parent}');\">
+							<i class=\"fa fa-plus-circle\"></i> 
+							<span>
+								Agregar 
+							</span>
+						</a></li>";*/
+			
+			
+		return $h;
+	};

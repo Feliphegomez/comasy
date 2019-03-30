@@ -10,7 +10,9 @@ class Menu extends BaseClass
 			$id_temp = (int) $menu_id_or_slug;
 			$slug_temp = (string) $menu_id_or_slug;
 			
-			if($id_temp > 0)
+			$this->load_by_slug($slug_temp);
+		
+			if($id_temp > 0 && $this->id == null)
 				{
 					$this->load_by_id($id_temp);
 				}
@@ -34,6 +36,8 @@ class Menu extends BaseClass
 				if(isset($result[0])) 
 					{
 						$this->set_data($result[0]);
+						$this->id = (int) $this->id;
+						$this->slug = (string) $this->slug;
 						$nodes = new MenuNodes($this->id);
 						$this->nodes = $nodes->nodes;
 					}
@@ -138,4 +142,40 @@ class MenuNodes extends BaseClass
 		}
 }
 
+class Menus
+	{
+		public $data;
+				
+		function __construct()
+			{
+				try 
+					{
+						$sql = "SELECT `".TABLE_MENUS."`.* 
+							FROM `".TABLE_MENUS."` ";
+								
+						$pdo = new PDO("mysql:host=".HOST_DB.";dbname=".NAME_DB, USER_DB, PASS_DB);
+						$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+						$stmt = $pdo->prepare($sql);
+						$pdo->exec("SET CHARACTER SET utf8; SET COLLATION SET utf8_unicode_ci");
+						$stmt->execute();
+						$result = ($stmt->fetchAll(PDO::FETCH_OBJ));
+						
+						foreach($result as $item)
+							{
+								$this_menu = new Menu($item->slug);
+								
+								if(isset($this_menu->slug) && $this_menu->slug != null)
+									{
+										$this->data[] = $this_menu;
+									}
+							}
+						$pdo = null;
+					}
+				catch(PDOException $e) 
+					{
+						echo $e->getMessage();
+						return false;
+					}
+			}
+	}
 

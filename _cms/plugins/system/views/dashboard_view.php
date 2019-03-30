@@ -2,11 +2,10 @@
 	global $statistics;
 	
 	#echo json_encode($statistics);
-	
 ?>
 <div class="main-page">
 	<div class="col_3">
-		<div class="col-md-6 widget widget1">
+		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded"></i>
 				<div class="stats">
@@ -24,16 +23,55 @@
 				</div>
 			</div>
 		</div>
+					
+		<div class="col-md-3 widget widget1">
+			<div class="r3_counter_box">
+				<div class="col-md-6 top-content">
+					<h5>Sesiones</h5>
+					<?php 
+						$total_count = 0;
+						foreach($statistics->sessions_last as $date => $hours)
+							{
+								foreach($hours as $hour => $item2)
+									{
+										$total_count = $total_count + count($item2);
+									}
+							}
+					?>
+					<label><?php echo ($total_count); ?></label>
+				</div>
+				<div class="col-md-6 top-content">
+					<h5>Hoy</h5>
+					<?php 
+						$total_count = 0;
+						$date_current = new DateTime();
+						$day_compare = (string) date_format($date_current, 'Y-m-d');
+						foreach($statistics->sessions_last as $date => $hours)
+							{
+								if($day_compare == $date)
+									{
+										foreach($hours as $hour => $item2)
+											{
+												$total_count = $total_count + count($item2);
+											}
+									}
+							}
+					?>
+					<label><?php echo ($total_count); ?></label>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
 		<?php 
 			$total_count = 0;
 			foreach($statistics->sessions_last as $date => $hours)
 				{
 				?>
-				<div class="col-md-6 widget widget1">
+				<div class="col-md-3 widget widget1">
 					<div class="r3_counter_box">
 						<i class="pull-left fa fa-pie-chart user1 icon-rounded"></i>
 						<div class="stats">
-							<h5><strong>Día: <?php echo ($date); ?></strong></h5>
+							<h5><strong><?php echo ($date); ?></strong></h5>
 							<!-- <span><?php echo count($hours); ?> Hora(s)</span> -->
 							<?php 
 								foreach($hours as $hour => $item2)
@@ -48,17 +86,7 @@
 				<?php 
 				}
 		?>
-					
 		<!-- //
-		<div class="col-md-3 widget widget1">
-			<div class="r3_counter_box">
-				<i class="pull-left fa fa-money user2 icon-rounded"></i>
-				<div class="stats">
-					<h5><strong>$1012</strong></h5>
-					<span>Expenses</span>
-				</div>
-			</div>
-		</div>
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-laptop dollar1 icon-rounded"></i>
@@ -633,69 +661,42 @@
 			</div>
 		</div>
 		<div class="col-md-3 stat">
-			
-			<div class="content-top-1">
-				<div class="col-md-6 top-content">
-					<h5>Sesiones</h5>
-					<?php 
-						$total_count = 0;
-						foreach($statistics->sessions_last as $date => $hours)
-							{
-								foreach($hours as $hour => $item2)
-									{
-										$total_count = $total_count + count($item2);
-									}
-							}
-					?>
-					<label><?php echo ($total_count); ?></label>
-				</div>
-				<div class="col-md-6 top-content">
-					<h5>Hoy</h5>
-					<?php 
-						$total_count = 0;
-						$date_current = new DateTime();
-						$day_compare = (string) date_format($date_current, 'Y-m-d');
-						foreach($statistics->sessions_last as $date => $hours)
-							{
-								if($day_compare == $date)
-									{
-										foreach($hours as $hour => $item2)
-											{
-												$total_count = $total_count + count($item2);
-											}
-									}
-							}
-					?>
-					<label><?php echo ($total_count); ?></label>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
 			<div class="content-top-1">
 				<div class="col-md-12 top-content">
-					<table class="table table-hover table-responsive">
+			
+					<div class="panel-group">
+					
 						<?php 
+							$i = 0;
 							foreach($statistics->sessions_last as $date => $hours)
 								{
-									echo "<tr>";
-										echo "<th colspan=\"2\" class=\"text-center\">{$date}</th>";
-									echo "</tr>";
-										foreach($hours as $hour => $item)
-											{
-												$label = "{$hour}:00";
-												$text = count($item)." Sesion(es)";
-
-												# echo "<h5>{$label}</h5>";
-												# echo "<label>{$text}</label>";
-
-												echo "<tr>";
-													echo "<td class=\"text-center\">{$label}</td>";
-													echo "<td>{$text}</td>";
-												echo "</tr>";
-
-											}
+									?>
+									
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" href="#collapse<?php echo "{$i}"; ?>"><?php echo "{$date}"; ?></a>
+											</h4>
+										</div>
+										<div id="collapse<?php echo "{$i}"; ?>" class="panel-collapse collapse panel-body">
+											<ul class="list-group">
+												<?php 
+													foreach($hours as $hour => $item)
+														{
+															$label = "{$hour}:00";
+															$text = count($item)." Sesion(es)";
+															echo "<li class=\"list-group-item\">{$label} | {$text}</li>";
+														}
+												?>
+											</ul>
+										</div>
+									</div>
+									<?php 
+									$i = $i+1;
 								}
 						?>
-					</table>
+					
+					</div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

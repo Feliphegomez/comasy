@@ -199,20 +199,25 @@ class Session extends BaseClass
 }
 # ----------------- SESSION -----------------
 
-class SessionView extends BaseClass 
+class SessionView
 	{
-		public $id, $data, $last_accessed, $real_ip, $user_id, $username;
+		public $id = 'id_in_server_no_save';
+		public $data = '';
+		public $last_accessed = '2019-01-01 00:00:00';
+		public $real_ip = '0.0.0.0';
+		public $user_id = 0;
+		public $username = 'anon';
 		
 		function __construct($params = null)
 			{
-				if(isset($params->id) && $params->id > 0){ $this->load_by_id($params->id); }
+				if(isset($params->id) && $params->id != ""){ $this->load_by_id($params->id); }
 				
 			}
 		
 		# Se esta validando esta funcion para poder ejecutar la sessio.
 		function load_by_id($id)
 			{
-				$sql = "SELECT `".TABLE_SESSIONS."`.*, `users`.`*`
+				$sql = "SELECT `".TABLE_SESSIONS."`.*, `users`.`id` as user_id, `users`.`username` as username
 				FROM `".TABLE_SESSIONS."` 
 					LEFT JOIN `users` ON `users`.id = `".TABLE_SESSIONS."`.`user_id` 
 				WHERE `".TABLE_SESSIONS."`.id='{$id}'";
@@ -226,6 +231,16 @@ class SessionView extends BaseClass
 					$this->set_data($resultOne);
 				}
 			}
+
+	   function set_data($data)
+		   {
+				foreach($data as $k=>$v)
+					{
+						if($v != null){
+							$this->{$k} = $v;
+						}
+					}
+		   }
 			
 	}
 
@@ -237,15 +252,24 @@ class Sessions
 			{
 				try 
 					{
+						$sql = "SELECT `sessions`.*, `users`.`id` as user_id, `users`.`username` as username
+								FROM `sessions`
+							LEFT JOIN `users` 
+								ON `users`.id=`sessions`.`user_id` ORDER BY `sessions`.`last_accessed` DESC";
+								
 						$pdo = new PDO("mysql:host=".HOST_DB.";dbname=".NAME_DB, USER_DB, PASS_DB);
 						$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-						$stmt = $pdo->prepare("SELECT `".TABLE_SESSIONS."`.* FROM `".TABLE_SESSIONS."` ");			
+						$stmt = $pdo->prepare($sql);
 						$pdo->exec("SET CHARACTER SET utf8; SET COLLATION SET utf8_unicode_ci");
 						$stmt->execute();
 						$result = ($stmt->fetchAll(PDO::FETCH_OBJ));
 						foreach($result as $item)
-							{
-								$this->data[] = new SessionView($item);
+							{								
+								$this_session = new SessionView($item);
+								if(isset($this_session->id) && $this_session->id != null)
+									{
+										$this->data[] = $this_session;
+									}
 							}
 						$pdo = null;
 					}

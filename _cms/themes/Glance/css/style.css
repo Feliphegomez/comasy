@@ -168,8 +168,9 @@ button#showLeftPush:hover {
     display: block;
     background: #2d6696fc;
     background: none;
-    color: #fff;
-    margin-top: 10px;
+    /* color: #fff; */
+    color: #777;
+    /* margin-top: 10px; */
 }
 .nav > li > a:hover, .nav > li > a:focus {
     text-decoration: none;
